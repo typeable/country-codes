@@ -20,7 +20,7 @@ import qualified Data.Text as T
 import           Prelude (Show,Read,Eq,Ord,Bounded,Enum,error,($),(++),Maybe(..),(.),fail,seq)
 import           Text.Shakespeare.I18N
 
-data CountryCode = 
+data CountryCode =
     AD
   | AE
   | AF
@@ -270,6 +270,14 @@ data CountryCode =
   | ZA
   | ZM
   | ZW
+  -- Added these non standard codes that occur in
+  -- travolutionary database
+  -- https://typeable.atlassian.net/browse/B2H-796
+  | XA
+  | AN
+  | XK
+  | XC
+  | WE
   deriving (Show,Read,Eq,Ord,Bounded,Enum,Typeable)
 
 -- | Maybe get the CountryCode from the text code.
@@ -523,6 +531,11 @@ fromMText "YT" = Just YT
 fromMText "ZA" = Just ZA
 fromMText "ZM" = Just ZM
 fromMText "ZW" = Just ZW
+fromMText "XA" = Just XA
+fromMText "AN" = Just AN
+fromMText "XK" = Just XK
+fromMText "XC" = Just XC
+fromMText "WE" = Just WE
 fromMText _    = Nothing
 
 -- | Get the CountryCode from the text code. Errors if the code is unknown
@@ -782,6 +795,11 @@ toText YT = "YT"
 toText ZA = "ZA"
 toText ZM = "ZM"
 toText ZW = "ZW"
+toText XA = "XA"
+toText AN = "AN"
+toText XK = "XK"
+toText XC = "XC"
+toText WE = "WE"
 
 -- | Maybe get the code from the user readable name.
 fromMName :: T.Text -> Maybe CountryCode
@@ -1034,6 +1052,11 @@ fromMName "Mayotte" = Just YT
 fromMName "South Africa" = Just ZA
 fromMName "Zambia" = Just ZM
 fromMName "Zimbabwe" = Just ZW
+fromMName "Canary Islands" = Just XA
+fromMName "Netherlands Antilles" = Just AN
+fromMName "Kosovo" = Just XK
+fromMName "Ceuta" = Just XC
+fromMName "West Bank" = Just WE
 fromMName _    = Nothing
 
 -- | Get the CountryCode from the user readable name. Errors if the name is unknown
@@ -1293,6 +1316,11 @@ toName YT = "Mayotte"
 toName ZA = "South Africa"
 toName ZM = "Zambia"
 toName ZW = "Zimbabwe"
+toName XA = "Canary Islands"
+toName AN = "Netherlands Antilles"
+toName XK = "Kosovo"
+toName XC = "Ceuta"
+toName WE = "West Bank"
 
 -- | list of names sorted by alphabetical order, with country code
 -- this is ready to be used in a yesod selectField, for example
@@ -1545,7 +1573,13 @@ countryList = [("Afghanistan",AF)
               ,("Yemen",YE)
               ,("Zambia",ZM)
               ,("Zimbabwe",ZW)
-              ,("Åland Islands",AX)              ]
+              ,("Åland Islands",AX)
+              ,("Canary Islands", XA)
+              ,("Netherlands Antilles",AN)
+              ,("Kosovo",XK)
+              ,("Ceuta",XC)
+              ,("West Bank",WE)
+              ]
 
 -- | to json: as a simple string
 instance ToJSON CountryCode where
