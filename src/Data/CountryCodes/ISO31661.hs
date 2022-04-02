@@ -1,6 +1,7 @@
 {-# LANGUAGE DeriveDataTypeable, OverloadedStrings, NoImplicitPrelude
   , DeriveGeneric, DeriveAnyClass, PatternGuards, FlexibleInstances
   , MultiParamTypeClasses, StandaloneDeriving #-}
+{-# OPTIONS_GHC -fconstraint-solver-iterations=10 #-}
 -- | This file is generated from the Wikipedia page
 -- <http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2>
 module Data.CountryCodes.ISO31661 (
@@ -23,6 +24,8 @@ import Data.OpenApi
 import GHC.Generics
 import Prelude (Show,Read,Eq,Ord,Bounded,Enum,error,($),(++),Maybe(..),(.),fail,seq)
 import Text.Shakespeare.I18N
+import Test.QuickCheck.Arbitrary
+import Test.QuickCheck.Arbitrary.Generic
 
 data CountryCode =
     AD
@@ -1605,3 +1608,7 @@ instance RenderMessage master CountryCode where
 -- | Allow the deep evaluation of CountryCode with `deepseq`
 instance NFData CountryCode where
   rnf a = a `seq` ()
+
+instance Arbitrary CountryCode where
+  arbitrary = genericArbitrary
+  shrink = genericShrink

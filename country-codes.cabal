@@ -31,8 +31,10 @@ library
     , text                 >= 0.11
     , aeson                >= 0.5
     , deepseq              >= 1.4
+    , generic-arbitrary
     , shakespeare          == 2.0.*
     , openapi3
+    , QuickCheck
   ghc-options:      -Wall
   other-modules:    Data.CountryCodes.ISO31661
   exposed-modules:  Data.CountryCodes
