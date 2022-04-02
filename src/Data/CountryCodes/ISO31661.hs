@@ -1,4 +1,6 @@
-{-# LANGUAGE DeriveDataTypeable, OverloadedStrings, NoImplicitPrelude, PatternGuards, FlexibleInstances, MultiParamTypeClasses #-}
+{-# LANGUAGE DeriveDataTypeable, OverloadedStrings, NoImplicitPrelude
+  , DeriveGeneric, DeriveAnyClass, PatternGuards, FlexibleInstances
+  , MultiParamTypeClasses, StandaloneDeriving #-}
 -- | This file is generated from the Wikipedia page
 -- <http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2>
 module Data.CountryCodes.ISO31661 (
@@ -14,11 +16,13 @@ module Data.CountryCodes.ISO31661 (
 
 import Control.Applicative (pure)
 import Control.DeepSeq (NFData(..))
-import           Data.Aeson
-import           Data.Typeable
-import qualified Data.Text as T
-import           Prelude (Show,Read,Eq,Ord,Bounded,Enum,error,($),(++),Maybe(..),(.),fail,seq)
-import           Text.Shakespeare.I18N
+import Data.Aeson
+import Data.Typeable
+import Data.Text as T
+import Data.OpenApi
+import GHC.Generics
+import Prelude (Show,Read,Eq,Ord,Bounded,Enum,error,($),(++),Maybe(..),(.),fail,seq)
+import Text.Shakespeare.I18N
 
 data CountryCode =
     AD
@@ -278,7 +282,7 @@ data CountryCode =
   | XK
   | XC
   | WE
-  deriving (Show,Read,Eq,Ord,Bounded,Enum,Typeable)
+  deriving (Show,Read,Eq,Ord,Bounded,Enum,Typeable, Generic, ToSchema)
 
 -- | Maybe get the CountryCode from the text code.
 fromMText :: T.Text -> Maybe CountryCode
@@ -1583,13 +1587,16 @@ countryList = [("Afghanistan",AF)
 
 -- | to json: as a simple string
 instance ToJSON CountryCode where
-  toJSON =toJSON . toText
+  toJSON = toJSON . toText
 
 -- | from json: as a simple string
 instance FromJSON CountryCode where
   parseJSON (String s)
     | Just a <- fromMText s=pure a
-  parseJSON _ =fail "CountryCode"
+  parseJSON _ = fail "CountryCode"
+
+deriving instance ToJSONKey CountryCode
+deriving instance FromJSONKey CountryCode
 
 -- | show user readable name, in English (ignoring locale for now)
 instance RenderMessage master CountryCode where
