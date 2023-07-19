@@ -1,12 +1,12 @@
-resolver: lts-18.18
+resolver: lts-21.3
 
 packages:
 - .
 
-extra-deps:
-- git: https://github.com/typeable/openapi3.git
-  # nix-sha256: 1aqn5dia4aqwpmr3v0rcb8kzhknp5674hhay8h7p76206dx83ykg
-  commit: bb1c64f8501535143c92907166fdc9f8df6d51b9
-- git: https://github.com/typeable/generic-arbitrary.git
-  # nix-sha256: 01k87zxa8cd5ssy1wiqwyqqvz4v7lvh3q6cipmadg4w2ynmfbdn0
-  commit: 84c62a4de517c78e5080f5451714ce7944987ba6
+# extra-deps:
+# - git: https://github.com/typeable/openapi3.git
+#   # nix-sha256: 1aqn5dia4aqwpmr3v0rcb8kzhknp5674hhay8h7p76206dx83ykg
+#   commit: bb1c64f8501535143c92907166fdc9f8df6d51b9
+# - git: https://github.com/typeable/generic-arbitrary.git
+#   # nix-sha256: 01k87zxa8cd5ssy1wiqwyqqvz4v7lvh3q6cipmadg4w2ynmfbdn0
+#   commit: 84c62a4de517c78e5080f5451714ce7944987ba6
